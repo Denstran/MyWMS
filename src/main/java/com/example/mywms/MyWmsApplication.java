@@ -1,6 +1,5 @@
 package com.example.mywms;
 
-import com.example.mywms.Model.Delivery;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

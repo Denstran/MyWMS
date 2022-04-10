@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "t_product")
+@Table(name = "product")
 @Getter
 @Setter
 public class Product extends BaseEntity{
@@ -21,22 +23,18 @@ public class Product extends BaseEntity{
 
     private int productPrice;
 
-    private boolean isDelivered;
+    private int productStock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id", nullable = false)
-    private Delivery productDelivery;
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return productPrice == product.productPrice && productName.equals(product.productName) && productType == product.productType && productDescription.equals(product.productDescription);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(productName, productType, productDescription, productPrice);
-    }
+    @ManyToMany
+    @JoinTable(
+        name = "product_delivery",
+        joinColumns = {
+                @JoinColumn(name = "product_id"),
+        },
+        inverseJoinColumns = @JoinColumn(name = "delivery_id")
+    )
+    private Set<Delivery> deliveriesProductIn = new HashSet<>();
 }
