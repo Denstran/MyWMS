@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WMSHomePage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                Warehouse Management System
+                <small>WMS</small>
+            </h1>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a th:href="@{/}">Главная</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/allProducts}">Просмотр товаров</a>
+                        </li>
+                        <li>
+                            <a href="">Менеджмент товаров</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <p>Тестовый проект с использование Java Spring Framework и шаблонизатора Thymeleaf</p>
+    </div>
+
+    <div class="container">
+        <h3>Учебный проект по создание простой WMS</h3>
+        <p>
+            WMS позволит добовлять товары, оформлять их доставку,
+            убирать их, а также просматривать товары <br/> и сортировать их
+            различными способами.
+        </p>
+    </div>
+
+</body>
+</html>

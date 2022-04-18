@@ -51,10 +51,15 @@ public class ProductService {
         if (product.getProductStatus().equals(ProductStatus.FREE_TO_DELIVER)){
 
             if (product.getProductStock() > productAmount) {
+
                 delivery.getProductsForDelivery().add(product);
                 product.getDeliveriesProductIn().add(delivery);
 
+                // Уменьшаем количестов продукта на складе
                 product.setProductStock(product.getProductStock() - productAmount);
+
+                // Обновляем продукт в БД
+                saveProduct(product);
                 return true;
             }
 
@@ -62,6 +67,7 @@ public class ProductService {
 
         return false;
     }
+
 
 
 }

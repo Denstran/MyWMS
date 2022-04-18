@@ -4,4 +4,5 @@ public enum ProductType {
     BEATING,
     CLOTHES,
     JEWELRY,
+    FOOD
 }
