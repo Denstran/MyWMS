@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все товары</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>
+            Warehouse Management System
+            <small>WMS</small>
+        </h1>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a th:href="@{/}">Главная</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/allProducts}">Просмотр товаров</a>
+                    </li>
+                    <li class="active">
+                        <a th:href="@{/productsManage}">Менеджмент товаров</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <p>Тестовый проект с использование Java Spring Framework и шаблонизатора Thymeleaf</p>
+</div>
+
+<div class="container">
+    <a class="btn btn-outline-dark" th:href="@{/addProduct}" role="button">Добавить товар</a>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID товара</th>
+            <th scope="col">Название товара</th>
+            <th scope="col">Описание товара</th>
+            <th scope="col">Цена товра</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Тип товара</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${allProducts}">
+            <th scope="row" th:text="${product.getId()}">ID</th>
+            <td th:text="${product.getProductName()}"></td>
+            <td th:text="${product.getProductDescription()}"></td>
+            <td th:text="${product.getProductPrice()}"></td>
+            <td th:text="${product.getProductStatus()}"></td>
+            <td th:text="${product.getProductStock()}"></td>
+            <td th:text="${product.getProductType()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

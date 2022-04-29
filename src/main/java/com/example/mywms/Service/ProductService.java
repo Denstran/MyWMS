@@ -3,11 +3,14 @@ package com.example.mywms.Service;
 import com.example.mywms.Model.Delivery;
 import com.example.mywms.Model.Product;
 import com.example.mywms.Model.ProductStatus;
+import com.example.mywms.Model.ProductType;
 import com.example.mywms.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -22,8 +25,15 @@ public class ProductService {
         return productRepository.findByProductName(productName);
     }
 
-    public Product saveProduct(Product product){
-        return productRepository.save(product);
+    public boolean saveProduct(Product product){
+        Product productFromDB = findProductByName(product.getProductName());
+
+        if (productFromDB != null){
+            return false;
+        }
+
+        productRepository.save(product);
+        return true;
     }
 
     public Product findProductById(Long id){
@@ -38,6 +48,10 @@ public class ProductService {
         productRepository.delete(product);
     }
 
+    public List<Product> findByProductType(Set<ProductType> productTypes){
+
+        return productRepository.findByProductTypeIn(productTypes);
+    }
 
     /**
      *
