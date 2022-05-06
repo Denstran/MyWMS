@@ -8,7 +8,6 @@ import com.example.mywms.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +32,25 @@ public class ProductService {
         }
 
         productRepository.save(product);
+        return true;
+    }
+
+
+    public boolean updateProduct(Product productForUpdate){
+        // ищием товар с таким же именем в БД
+        Product productFromDB = findProductByName(productForUpdate.getProductName());
+
+        if (productFromDB != null){
+            // если товар с таким именем нашёлся, проверяем, является ли это товар тем же самым
+            if (productFromDB.equals(productForUpdate)){
+                // если да, то обновляем данные и возращаем true
+                productRepository.save(productForUpdate);
+                return true;
+            }else return false; // инче false
+        }
+
+        // если товар не нашёлся, просто обновляем данные возращаем true
+        productRepository.save(productForUpdate);
         return true;
     }
 
@@ -62,6 +80,7 @@ public class ProductService {
      *         не меньше доставяемого товара
      */
     public boolean putProductInDelivery(Delivery delivery, Product product, int productAmount){
+
         if (product.getProductStatus().equals(ProductStatus.FREE_TO_DELIVER)){
 
             if (product.getProductStock() > productAmount) {
@@ -81,7 +100,5 @@ public class ProductService {
 
         return false;
     }
-
-
 
 }
