@@ -55,6 +55,19 @@
             <td th:text="${product.getProductStatus()}"></td>
             <td th:text="${product.getProductStock()}"></td>
             <td th:text="${product.getProductType()}"></td>
+            <td>
+                <form th:action="@{/productsManage}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.getId()}"/>
+                    <input type="hidden" name="action" value="delete"/>
+                    <button type="submit" class="btn btn-dark">Удалить</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/productUpdate}" method="GET">
+                    <input type="hidden" name="productId" th:value="${product.getId()}"/>
+                    <button type="submit" class="btn btn-dark">Изменить</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

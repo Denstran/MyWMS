@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1>
+            Warehouse Management System
+            <small>WMS</small>
+        </h1>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a th:href="@{/}">Главная</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/allProducts}">Просмотр товаров</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/productsManage}">Менеджмент товаров</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <p>Тестовый проект с использование Java Spring Framework и шаблонизатора Thymeleaf</p>
+</div>
+
+<div class="container">
+    <form th:method="POST" th:action="@{/productUpdate}" th:object="${productForUpdate}">
+        <label for="inputProductId" th:type="hidden"></label>
+        <input type="text" th:field="*{id}" class="form-control" th:type="hidden" id="inputProductId"/>
+
+        <label for="productStatus" th:type="hidden"></label>
+        <input type="text" th:field="*{productStatus}" class="form-control" th:type="hidden" id="productStatus"/>
+        <div class="form-row" >
+            <label for="inputProductName">Название товара</label>
+            <input type="text" th:field="*{productName}" class="form-control" id="inputProductName" placeholder="Название товара">
+            <div class="valid-feedback" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></div>
+            <div class="valid-feedback" th:text="${productNameErrors}"></div>
+        </div>
+        <div class="form-row">
+            <label for="inputProductDescription">Описание товара</label>
+            <input type="text" th:field="*{productDescription}" class="form-control" id="inputProductDescription" placeholder="Описание товара">
+            <div class="valid-feedback" th:if="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}"></div>
+        </div>
+        <div class="form-row">
+            <label for="inputProductPrice">Цена товара</label>
+            <input type="text" th:field="*{productPrice}" class="form-control" id="inputProductPrice" placeholder="Цена товара">
+            <div class="valid-feedback" th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}"></div>
+        </div>
+        <div class="form-row">
+            <label for="inputProductStock">Количество товара</label>
+            <input type="text" th:field="*{productStock}" class="form-control" id="inputProductStock" placeholder="Количество товара">
+            <div class="valid-feedback" th:if="${#fields.hasErrors('productStock')}" th:errors="*{productStock}"></div>
+        </div>
+        <div class="form-row">
+            <label for="productType">Тип товара</label>
+            <select id="productType" th:field="*{productType}" class="form-control" name="productType">
+                <option th:value="BEATING" selected>BEATING</option>
+                <option th:value="CLOTHES">CLOTHES</option>
+                <option th:value="JEWELRY">JEWELRY</option>
+                <option th:value="FOOD">FOOD</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Обновить</button>
+    </form>
+</div>
+
+</body>
+</html>

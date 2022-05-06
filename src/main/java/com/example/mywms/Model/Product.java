@@ -15,7 +15,6 @@ import java.util.Set;
 public class Product extends BaseEntity{
 
     @NotBlank(message = "Поле не должно быть пустым")
-    @Size(min = 1, max = 40, message = "Название товара должно быть от 5 до 40 символов")
     private String productName;
 
     @Enumerated(EnumType.STRING)
@@ -43,4 +42,21 @@ public class Product extends BaseEntity{
         inverseJoinColumns = @JoinColumn(name = "delivery_id")
     )
     private Set<Delivery> deliveriesProductIn = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return getId().equals(product.getId()) && getProductName().equals(product.getProductName());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + getProductName().hashCode();
+        result = (int) (prime * result + getId());
+        return result;
+    }
 }

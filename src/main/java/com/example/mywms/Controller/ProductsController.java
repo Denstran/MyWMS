@@ -95,4 +95,41 @@ public class ProductsController {
         return "redirect:/allProducts";
     }
 
+    @PostMapping("/productsManage")
+    public String deleteProduct(@RequestParam(defaultValue = "") Long productId,
+                                @RequestParam(defaultValue = "") String action){
+        Product productForDelete = productService.findProductById(productId);
+
+        if ("delete".equals(action)){
+            productService.deleteProduct(productForDelete);
+        }
+
+        return "redirect:/allProducts";
+    }
+
+    @GetMapping("/productUpdate")
+    public String productUpdateGet(@RequestParam Long productId,
+                                   Model model){
+        Product productForUpdate = productService.findProductById(productId);
+
+        model.addAttribute("productForUpdate", productForUpdate);
+
+        return "productTemplates/productUpdate";
+    }
+
+    @PostMapping("/productUpdate")
+    public String productUpdatePost(@ModelAttribute("productForUpdate") @Valid Product productForUpdate,
+                                    BindingResult bindingResult,
+                                    Model model){
+        if (bindingResult.hasErrors()){
+            return "productTemplates/productUpdate";
+        }
+
+        if (productService.updateProduct(productForUpdate)) {
+            return "redirect:/allProducts";
+        }
+
+        model.addAttribute("productNameErrors", "Товар с таким именем уже существует");
+        return "productTemplates/productUpdate";
+    }
 }
